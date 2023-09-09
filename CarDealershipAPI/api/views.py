@@ -25,6 +25,7 @@ class CarView(APIView):
             condition = request.GET.get('condition')
             color = request.GET.get('color')
             featured = request.GET.get('featured')
+            newArrivals = request.GET.get('newArrivals')
             queryset = Car.objects.all()
             if make is not None:
                 queryset = queryset.filter(carModel__carMake__name = make)
@@ -46,6 +47,8 @@ class CarView(APIView):
                 queryset = queryset.filter(color__name = color)
             if featured is not None:
                 queryset = queryset.filter(featured = featured)
+            if newArrivals:
+                queryset = queryset.order_by('-id')[:10]
             serializedQueryset = CarSerializer(queryset, many = True).data
             return Response(serializedQueryset, status = status.HTTP_200_OK)
         except Exception as e:

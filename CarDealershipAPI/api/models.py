@@ -40,6 +40,7 @@ class Car(models.Model):
     condition = models.ForeignKey(Condition,  on_delete=models.SET_NULL, null = True, blank = True)
     color = models.ForeignKey(Color, on_delete = models.SET_NULL, null = True, blank = True)
     featured = models.BooleanField(default = 0)
+    img = models.CharField(max_length = 2000, null = True, blank = True)
 
     class Meta:
         unique_together = ['carModel', 'year', 'milage', 'engineType', 'condition', 'color']

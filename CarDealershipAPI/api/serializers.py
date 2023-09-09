@@ -20,4 +20,4 @@ class CarSerializer(serializers.ModelSerializer):
     color = serializers.StringRelatedField()
     class Meta:
         model = Car
-        fields = ['id', 'carModel', 'year', 'milage', 'engineType', 'condition', 'color']
+        fields = ['id', 'carModel', 'year', 'milage', 'engineType', 'condition', 'color', 'img']
