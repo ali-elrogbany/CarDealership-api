@@ -4,6 +4,7 @@ from rest_framework import status
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from .permissions import IsManagerOrPostOnly
 
 from .models import *
 from .serializers import *
@@ -125,3 +126,72 @@ class CarModelsView(APIView):
                 return Response({'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'Unauthorized User'}, status = status.HTTP_401_UNAUTHORIZED)
+        
+class MessagesView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsManagerOrPostOnly]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            carID = request.GET.get('car')
+            queryset = Message.objects.all()
+            if carID is not None:
+                queryset = queryset.filter(car__id = carID)
+            serializedData = MessageSerializer(queryset, many = True).data
+            return Response(serializedData, status = status.HTTP_200_OK)
+        except Exception as e:
+                return Response({'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'haha'}, status = status.HTTP_200_OK)
+    
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        carInstance = None
+        try:
+            if data['carID']:
+                carInstance = Car.objects.get(pk = data['carID'])
+            messageInstance = Message.objects.create(
+                firstName = data['firstName'],
+                lastName = data['lastName'],
+                email = data['email'],
+                subject = data['subject'],
+                body = data['body'],
+                car = carInstance
+                )
+            return Response({'message': messageInstance.id}, status = status.HTTP_201_CREATED)
+        except Exception as e:
+                return Response({'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, *args, **kwargs):
+        data = request.data
+        try:
+            messageInstance = Message.objects.get(pk = data['id'])
+            if data['addressed'] is not None:
+                messageInstance.addressed = data['addressed']
+            messageInstance.save()
+            return Response({'message': f'message {messageInstance.id} successfully updated'}, status = status.HTTP_200_OK)
+        except Exception as e:
+                return Response({'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
+        
+class ColorsView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            colors = Color.objects.all()
+            serializedColors = ColorSerializer(colors, many = True).data
+            return Response(serializedColors, status = status.HTTP_200_OK)
+        except Exception as e:
+                return Response({'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)
+        
+class ConditionsView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            conditions = Condition.objects.all()
+            serializedConditions = ConditionSerializer(conditions, many = True).data
+            return Response(serializedConditions, status = status.HTTP_200_OK)
+        except Exception as e:
+                return Response({'error': str(e)}, status = status.HTTP_400_BAD_REQUEST)

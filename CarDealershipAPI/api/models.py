@@ -44,3 +44,12 @@ class Car(models.Model):
 
     class Meta:
         unique_together = ['carModel', 'year', 'milage', 'engineType', 'condition', 'color']
+
+class Message(models.Model):
+    firstName = models.CharField(max_length = 255)
+    lastName = models.CharField(max_length = 255)
+    email = models.CharField(max_length = 255)
+    subject = models.CharField(max_length = 255)
+    body = models.CharField(max_length = 4000)
+    car = models.ForeignKey(Car, on_delete = models.SET_NULL, null = True, blank = True)
+    addressed = models.BooleanField(default = 0)
