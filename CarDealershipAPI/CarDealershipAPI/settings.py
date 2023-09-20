@@ -32,10 +32,11 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200',
     'http://127.0.0.1:4200',
     'http://localhost:8000',
-    'http://127.0.0.1:8000'
+    'http://127.0.0.1:8000',
+    'https://cardealership-aelrogbany.b4a.run'
 )
 
-CSRF_TRUSTED_ORIGINS=['http://localhost:4200','http://127.0.0.1:4200']
+CSRF_TRUSTED_ORIGINS=['http://localhost:4200','http://127.0.0.1:4200', 'https://cardealership-aelrogbany.b4a.run']
 
 # Application definition
 
@@ -45,10 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-
     'api',
 ]
 

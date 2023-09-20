@@ -18,7 +18,7 @@ RUN pip install gunicorn
 COPY ./CarDealershipAPI/ /code/
 
 # Collect static files
-RUN python manage.py
+RUN python manage.py collectstatic --no-input
 
 # Expose the port on which the app will run
 EXPOSE ${PORT}
