@@ -24,4 +24,4 @@ RUN python CarDealershipAPI/manage.py
 EXPOSE ${PORT}
 
 # Start the app with gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "CarDealershipAPI.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "CarDealershipAPI/CarDealershipAPI.wsgi"]
