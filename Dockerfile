@@ -15,13 +15,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn
 
 # Copy the project code into the container
-COPY . /code/
+COPY ./CarDealershipAPI/ /code/
 
 # Collect static files
-RUN python CarDealershipAPI/manage.py
+RUN python manage.py
 
 # Expose the port on which the app will run
 EXPOSE ${PORT}
 
 # Start the app with gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "CarDealershipAPI/CarDealershipAPI.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "CarDealershipAPI.wsgi"]
