@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s47g3bv6my5^&gq=3!-l-ea+3r(u=)ka*q^va6havvh)np(1t^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 CORS_ORIGIN_ALLOW_ALL = True
@@ -34,10 +34,11 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:4200',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'https://cardealership-aelrogbany.b4a.run'
+    'https://cardealership1-aelrogbany.b4a.run',
+    'https://cardealershipapi-aelrogbany.b4a.run'
 )
 
-CSRF_TRUSTED_ORIGINS=['http://localhost:4200','http://127.0.0.1:4200', 'https://cardealership-aelrogbany.b4a.run']
+CSRF_TRUSTED_ORIGINS=['http://localhost:4200','http://127.0.0.1:4200', 'https://cardealership1-aelrogbany.b4a.run', 'https://cardealershipapi-aelrogbany.b4a.run']
 
 # Application definition
 

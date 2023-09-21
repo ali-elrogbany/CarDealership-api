@@ -13,7 +13,6 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn
-RUN pip install whitenoise
 
 # Copy the project code into the container
 COPY ./CarDealershipAPI/ /code/
